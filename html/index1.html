@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Nikhitha 🎉</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to top right, #f8cdda, #1d2b64);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .typing {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 10px auto; /* Let the paragraphs stack naturally */
+      white-space: pre-wrap;
+      border-right: 2px solid #fff;
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity 1.5s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday Nikhitha! 🎂</h1>
+  <div id="text1" class="typing"></div>
+  <div id="text2" class="typing hidden"></div>
+  <div id="text3" class="typing hidden"></div>
+
+  <!-- Confetti -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const particles = [];
+    const geometry = new THREE.SphereGeometry(0.05, 12, 12);
+
+    for (let i = 0; i < 150; i++) {
+      const color = Math.random() > 0.5 ? 0xff69b4 : 0xffd700;
+      const material = new THREE.MeshBasicMaterial({ color });
+      const particle = new THREE.Mesh(geometry, material);
+      particle.position.set((Math.random() - 0.5) * 10, Math.random() * 6, (Math.random() - 0.5) * 10);
+      scene.add(particle);
+      particles.push(particle);
+    }
+
+    camera.position.z = 5;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      particles.forEach(p => {
+        p.position.y -= 0.02;
+        p.rotation.x += 0.01;
+        p.rotation.y += 0.01;
+        if (p.position.y < -3) {
+          p.position.y = 6;
+        }
+      });
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+
+  <!-- Typing Effect for 3 Paragraphs -->
+  <script>
+    const message1 = "We are so lucky to have you in our lives, Nikhitha. Your presence makes everything brighter, and your smile has a way of making the world feel just right.";
+    const message2 = "May your journey ahead be filled with endless laughter, real love, and beautiful surprises. You deserve a life full of warmth, peace, and dreams come true.";
+    const message3 = "Once again, Happy Birthday, Nikhitha. From the bottom of my heart... thank you for being you.";
+
+    function typeMessage(text, container, callback) {
+      let i = 0;
+
+      function typeChar() {
+        if (i < text.length) {
+          container.innerHTML += text.charAt(i);
+          let delay = 110;
+          const char = text.charAt(i);
+          if (char === ',' || char === '.') delay = 1000;
+          i++;
+          setTimeout(typeChar, delay);
+        } else {
+          container.style.borderRight = 'none';
+          if (callback) callback();
+        }
+      }
+
+      typeChar();
+    }
+
+    const t1 = document.getElementById("text1");
+    const t2 = document.getElementById("text2");
+    const t3 = document.getElementById("text3");
+
+    typeMessage(message1, t1, () => {
+      setTimeout(() => {
+        t1.classList.add("hidden");
+        setTimeout(() => {
+          t2.classList.remove("hidden");
+          typeMessage(message2, t2, () => {
+            setTimeout(() => {
+              t2.classList.add("hidden");
+              setTimeout(() => {
+                t3.classList.remove("hidden");
+                typeMessage(message3, t3, () => {
+                  setTimeout(() => {
+                    t3.classList.add("hidden");
+                  }, 1000);
+                });
+              }, 1500);
+            }, 1000);
+          });
+        }, 1500);
+      }, 1000);
+    });
+  </script>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://res.cloudinary.com/dirg3b1io/video/upload/v1744491495/videoplayback_zyqclb.mp3" type="audio/mpeg">
+  </audio>
+</body>
+</html>
